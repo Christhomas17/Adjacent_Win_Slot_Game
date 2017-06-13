@@ -1,3 +1,10 @@
+"""
+This is a typical sized, 3x5, slot machine. The game evaluates wins as adjacent positions, rather than line wins. 
+This script uses recursion to check adjacent positions and find all of the wins on the screen. 
+The final rtp(return to player) is printed to the screen
+
+"""
+
 ########### define variables here
 
 iterations = 10000000
@@ -44,17 +51,17 @@ Adjacents = [adj_1,adj_2,adj_3,adj_4,adj_5,adj_6,adj_7,adj_8,adj_9,adj_10,adj_11
 
 BaseReels = pd.read_csv(cwd + r'\BaseReels.csv',sep = ",")
 PayTable = pd.read_csv(cwd + r'\Paytable.csv',sep = ",")
-#print(BaseReels)
+
 BaseSchemes = pd.read_csv(cwd + r'\BaseSchemes.csv',sep = ",")
 BaseSchemeWeight = sum(BaseSchemes.ix[:,15])
 
 
 
-#print(BaseSchemes)
+
 
 def get_stop():
 
-	#print(BaseReels.iloc[:,4].count())
+	
 	return([rd.randint(0,BaseReels.iloc[:,0].count()-1),
 		rd.randint(0,BaseReels.iloc[:,1].count()-1),
 		rd.randint(0,BaseReels.iloc[:,2].count()-1),
@@ -72,11 +79,11 @@ def get_stop():
 		rd.randint(0,BaseReels.iloc[:,14].count()-1)])
 
 
-#print(get_stop())
+
 
 def get_symbols(Stop):
 	
-	#print(Symbols)
+	
 	Window = (BaseReels.iloc[Stop[0],0],
 		BaseReels.iloc[Stop[1],1],
 		BaseReels.iloc[Stop[2],2],
@@ -106,22 +113,14 @@ def get_symbols(Stop):
 			#print(i)
 			break
 			
-	#print(NewSymbolRow)
-	#print(Window)
+	
 	for i in range(15):
-		#print(NewSymbolRow[i] == ReplacementSymbol)
-		#print(Window[i] == ReplacementSymbol)
+		
 		if Window[i] == ReplacementSymbol:
-			#print(str(Window[i]) + " " + str(NewSymbolRow[i]))
+			
 			Window = list(Window)
 			Window[i] = NewSymbolRow[i]
-			#list(Window)[i] = list(NewSymbolRow)[i]
-
-		#if Window[i] == 
-	#print(NewSymbolRow[1])
-	#print(NewSymbolRow[1] == "F6")
-	#print(Window)
-	#return(Window)
+			
 	global BonusHitCount
 	if Window[6]== BonusSymbol and Window[7] == BonusSymbol and Window[8] == BonusSymbol:
 		BonusHitCount = BonusHitCount + 1
@@ -135,47 +134,30 @@ def get_symbols(Stop):
 '''
 	 
 
-	#for i in range(15):
-	#	if Window[i] == ReplacementSymbol:
-	#		print("stuff")
-
+	
 
 def check_adjacents(InitialPosition, Symbol):
-	#SpotsStillToCheck.remove(InitialPosition)
+	
 	global  SpotsStillToCheck, Adjacent_Positions, Adjacent_Spots,Window
 	#InitialPosition = InitialPosition - 1
-	#print(str(InitialPosition) + "init pos")
-	#if Window[InitialPosition] == Symbol:
-	#	Adjacent_Spots.append(position)
+	
 	SpotsStillToCheck.remove(InitialPosition)
 	for position in Adjacents[InitialPosition]:
 		if position in SpotsStillToCheck:
-			#print(str(position) + "pos")
 			SpotsStillToCheck.remove(position)
-			#print(position)
-
+			
 			if Window[position] == Symbol or Window[position] == WildSymbol:
 				#print("position" + str(position))
 				Adjacent_Spots.append(position)
-				#print(Adjacent_Spots)
-				#SpotsStillToCheck.remove(InitialPosition)
+				
 		else:
 			next
-
-	#print(str(Adjacent_Spots) + "adj spots")
+	
 	for adj in Adjacent_Spots:
-		#print(adj)
-		#print(str(Adjacents[adj-1]) + "adjacents")
+		
 		for pos in Adjacents[adj]:
-			#print(str(pos) + "pos")
-			#print(str(pos) + "position")
-			if pos in SpotsStillToCheck and (Window[pos] == Symbol or Window[pos] == WildSymbol):
-
-				#print(str(pos) + "position")
-
-				#print(pos)
-				#SpotsStillToCheck.remove(pos)
-				#print("you made it here" + str(pos))
+			
+			if pos in SpotsStillToCheck and (Window[pos] == Symbol or Window[pos] == WildSymbol):				
 				Adjacent_Spots.append(pos)
 				check_adjacents(pos,Symbol)		
 
@@ -215,14 +197,8 @@ for iter in range(iterations):
 	Window = WindowAndProb[0]
 	StateProb = WindowAndProb[1]
 
-	#print(Window)
-	#print(Window[0:5])
-	#print(Window[5:10])
-	#print(Window[10:15])
-	#print(list(range(15)))
 	SpotsStillToCheck = list(range(15))
 	Adjacent_Spots = []
-
 	
 	SymbolRow = 0
 	for Symbol in SymbolList:
@@ -235,9 +211,7 @@ for iter in range(iterations):
 			if i in SpotsStillToCheck:
 				#print(str(i) + "i")
 				if Window[i] == Symbol or Window[i] == WildSymbol:
-					check_adjacents(i,Symbol)
-					#print(Adjacent_Spots)
-					#print(len(Adjacent_Spots)+1)
+					check_adjacents(i,Symbol)					
 					if(len(Adjacent_Spots)+ 1) > 3:
 						TotalPay = TotalPay + PayTable[str(len(Adjacent_Spots)+1)].iloc[SymbolRow]#*StateProb 
 
