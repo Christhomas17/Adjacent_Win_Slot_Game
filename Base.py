@@ -27,7 +27,6 @@ import os
 cwd = os.getcwd()
 
 adj_1 = [1,5]
-#adj_1 = []
 adj_2 = [0,2,6]
 adj_3 = [1,3,7]
 adj_4 = [2,4,8]
@@ -36,7 +35,6 @@ adj_6 = [0,6,10]
 adj_7 = [5,1,7,11]
 adj_8 = [6,2,8,12]
 adj_9 = [3,7,9,13]
-
 adj_10 = [4,8,14]
 adj_11 = [5,11]
 adj_12 = [10,6,12]
@@ -46,18 +44,11 @@ adj_15 = [9,13]
 
 Adjacents = [adj_1,adj_2,adj_3,adj_4,adj_5,adj_6,adj_7,adj_8,adj_9,adj_10,adj_11,adj_12,adj_13,adj_14,adj_15]
 
-
-#BaseReels = pd.read_table(r'C:\Users\builduser\Documents\Python\BaseReels.txt')
-
 BaseReels = pd.read_csv(cwd + r'\BaseReels.csv',sep = ",")
 PayTable = pd.read_csv(cwd + r'\Paytable.csv',sep = ",")
 
 BaseSchemes = pd.read_csv(cwd + r'\BaseSchemes.csv',sep = ",")
 BaseSchemeWeight = sum(BaseSchemes.ix[:,15])
-
-
-
-
 
 def get_stop():
 
@@ -78,12 +69,7 @@ def get_stop():
 		rd.randint(0,BaseReels.iloc[:,13].count()-1),
 		rd.randint(0,BaseReels.iloc[:,14].count()-1)])
 
-
-
-
-def get_symbols(Stop):
-	
-	
+def get_symbols(Stop):	
 	Window = (BaseReels.iloc[Stop[0],0],
 		BaseReels.iloc[Stop[1],1],
 		BaseReels.iloc[Stop[2],2],
@@ -100,14 +86,10 @@ def get_symbols(Stop):
 		BaseReels.iloc[Stop[13],13],
 		BaseReels.iloc[Stop[14],14])
 
-
-
 	
-	ReplacementState = rd.randint(0,BaseSchemeWeight-1)
-	#print(ReplacementState)
+	ReplacementState = rd.randint(0,BaseSchemeWeight-1)	
 	for i in range(NumBaseSchemeStates):
-		#chooses the 16th column which has the ranges in it
-		#print(str(ReplacementState) +  " " + str(BaseSchemes.iloc[i,16]))
+		#chooses the 16th column which has the ranges in it		
 		if ReplacementState <= BaseSchemes.iloc[i,16]:
 			NewSymbolRow = BaseSchemes.ix[i,:]
 			#print(i)
@@ -174,14 +156,7 @@ def get_symbol_pay(Symbol):
 		check_adjacents(i,Symbol)
 		#print(str(len(Adjacent_Spots)) + "length")
 
-
-
-
-
-
-
-
-Stop =  [1,5,6,1,1,1,1,2,2,1,2,1,1,2,2]
+#Stop =  [1,5,6,1,1,1,1,2,2,1,2,1,1,2,2]
 
 
 TotalPay = 0
