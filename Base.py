@@ -200,21 +200,7 @@ def get_symbol_pay(Symbol):
 
 
 Stop =  [1,5,6,1,1,1,1,2,2,1,2,1,1,2,2]
-#Stop = [10,1,1,10,0,4,40,1,1,0,1,0,0,1,1]
-#print(len(Stop))
-#WindowAndProb = get_symbols(get_stop())
-#print("we made it here")
-#Window = WindowAndProb[0]
-#StateProb = WindowAndProb[1]
-#print(Window)
-#print(StateProb)
-#i = 1
-#print(BaseSchemes.iloc[i,16] < 1000)
 
-#get_symbol_pay("M1")
-
-#Window = get_symbols(Stop)
-#print(Window)
 
 TotalPay = 0
 
@@ -224,8 +210,7 @@ for iter in range(iterations):
 	if iter%100000 == 0:
 		print(iter)
 	WindowAndProb = get_symbols(get_stop())
-	#Stop =  [1,5,6,1,1,1,1,2,2,1,2,1,1,2,2]
-	#Stop = [3,5,5,2,5,3,8,8,8,2,3,5,3,5,5]
+	
 	#WindowAndProb = get_symbols(Stop)
 	Window = WindowAndProb[0]
 	StateProb = WindowAndProb[1]
@@ -256,7 +241,6 @@ for iter in range(iterations):
 					if(len(Adjacent_Spots)+ 1) > 3:
 						TotalPay = TotalPay + PayTable[str(len(Adjacent_Spots)+1)].iloc[SymbolRow]#*StateProb 
 
-						#print(str(PayTable[str(len(Adjacent_Spots)+1)].iloc[SymbolRow]) + " " + Symbol + str(len(Adjacent_Spots) + 1) + "i" + str(i))
 					Adjacent_Spots = []
 
 
@@ -266,23 +250,4 @@ print("RTP = %6f" %rtp)
 print(str(BonusHitCount) + "bonus hit count")
 
 
-#f = open("results.txt", "w")
-#f.write(TotalPay/iterations/60)
-#f = open('results.txt','w')
-#f.write(TotalPay)
-#f.close()
 
-#f.write(str(BonusHitCount))
-#print(TotalPay/iterations)
-#print(str(BonusHitCount) + "bonus hit count")
-#f.close()
-#print(Adjacent_Spots)
-#print(str("M1").index(PayTable[:,0]))
-#print(PayTable)
-
-
-#print(PayTable[str(5)].iloc[1])
-
-#print(get_symbols(Stop))
-#print(get_symbols(Stop))
-#print(BaseReels.iloc[0,4])
